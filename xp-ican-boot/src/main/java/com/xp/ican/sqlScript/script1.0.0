@@ -1,0 +1,85 @@
+-- shrio首先需要四张表，分别为 user(用户）、role(角色）、permission(权限）、userRole(用户角色关系表)
+
+CREATE DATABASE IF NOT EXISTS ican default character set utf8mb4 COLLATE utf8mb4_general_ci;
+
+CREATE TABLE `user` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(20) NOT NULL DEFAULT '' COMMENT '名字',
+  `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '昵称',
+  `password` varchar(40) NOT NULL DEFAULT '' COMMENT '密码',
+  `userface` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
+  `telephone` varchar(13) NOT NULL DEFAULT '' COMMENT '电话',
+  `mail` varchar(20) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `isDelete` int(10) NOT NULL DEFAULT '0' COMMENT '是否删除,0:不删除，1:删除',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+
+CREATE TABLE `role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role` varchar(20) NOT NULL DEFAULT '' COMMENT '名称',
+  `isDelete` int(10) NOT NULL DEFAULT '0' COMMENT '是否删除,0:不删除，1:删除',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+
+CREATE TABLE `user_role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uid` bigint(20) NOT NULL  COMMENT '用户id',
+  `rid` bigint(20) NOT NULL  COMMENT '角色id',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色映射表';
+
+CREATE TABLE `permission_role` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rid` bigint(20) NOT NULL  COMMENT '角色id',
+  `pid` bigint(20) NOT NULL  COMMENT '权限id',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限映射表';
+
+
+CREATE TABLE `permission` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '名称',
+  `permission` varchar(255) NOT NULL DEFAULT '' COMMENT '权限',
+  `isDelete` int(10) NOT NULL DEFAULT '0' COMMENT '是否删除,0:不删除，1:删除',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限表';
+
+
+INSERT INTO `user`(`id`,`username`,`nickname`,`password`,`telephone`) VALUES (1000,"lqw","lqw","68c8b312b5f79792612abb3157c6c037","13049499999");
+INSERT INTO `user`(`id`,`username`,`nickname`,`password`,`telephone`) VALUES (1001,"abcd","lqw","68c8b312b5f79792612abb3157c6c037","13049499999");
+
+INSERT INTO `role` (`id`,`name`)  VALUES (1,"超级管理员");
+INSERT INTO `role` (`id`,`name`)  VALUES (2,"管理员");
+INSERT INTO `role` (`id`,`name`)  VALUES (3,"普通用户");
+
+INSERT INTO `permission` (`id`,`name`,`permission`) VALUES (1,"增加:订单","/add");
+INSERT INTO `permission` (`id`,`name`,`permission`) VALUES (2,"更新:订单","/update");
+INSERT INTO `permission` (`id`,`name`,`permission`) VALUES (3,"删除:订单","/delete");
+INSERT INTO `permission` (`id`,`name`,`permission`) VALUES (4,"查看:订单","/view");
+
+INSERT INTO `user_role`(`id`,`uid`,`rid`) VALUES (1,1000,1);
+INSERT INTO `user_role`(`id`,`uid`,`rid`) VALUES (2,1001,2);
+INSERT INTO `user_role`(`id`,`uid`,`rid`) VALUES (3,1000,2);
+
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (1,1,1);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (2,1,2);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (3,1,3);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (4,1,4);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (5,2,1);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (6,2,2);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (7,2,4);
+INSERT INTO `permission_role` (`id`,`rid`,`pid`) VALUES (8,3,4);
