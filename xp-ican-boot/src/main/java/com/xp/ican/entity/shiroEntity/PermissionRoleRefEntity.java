@@ -19,11 +19,11 @@ public class PermissionRoleRefEntity extends Model<PermissionRoleRefEntity> {
     private Long id;
 
     @TableField("rid")
-    private Long uid;
+    private Long rid;
 
 
     @TableField("pid")
-    private Long rid;
+    private Long pid;
 
 
     @TableField("create_time")

@@ -1,4 +1,4 @@
-package com.xp.ican.dto.Req;
+package com.xp.ican.dto.Req.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

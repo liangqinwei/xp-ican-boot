@@ -1,7 +1,7 @@
 package com.xp.ican.exception;
 
 import com.xp.ican.common.constants.ResponseCodeNum;
-import com.xp.ican.config.CommonConfig;
+import com.xp.ican.config.commonConfig.CommonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;

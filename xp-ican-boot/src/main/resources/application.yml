@@ -50,3 +50,8 @@ xiaopeng:
         - /prometheus
         - /health
         - /info
+
+jwt:
+  appKey:
+  period:
+  issuer:

@@ -1,7 +1,6 @@
 package com.xp.ican.controller.admin;
 
-import com.xp.ican.dto.Req.UpdateUserReq;
-import com.xp.ican.dto.Resp.UserDetailResp;
+import com.xp.ican.dto.Req.user.UpdateUserReq;
 import com.xp.ican.service.shiroSerivce.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.*;
 
 
 @RestController
