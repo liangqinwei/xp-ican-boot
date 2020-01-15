@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class JwtToken {
     private String token;//请求时携带的token
-    private String name;//用户id，用户在数据库里的id
+    private String name;//用户name，用户在数据库里的name
     private List<String> permissions;//用户权限集合
     private Boolean isFlushed;//token字段是否被刷新
 

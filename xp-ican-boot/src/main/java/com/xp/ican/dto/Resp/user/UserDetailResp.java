@@ -1,4 +1,4 @@
-package com.xp.ican.dto.Resp;
+package com.xp.ican.dto.Resp.user;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;

@@ -100,29 +100,18 @@ public class JwtUtil {
     }
 
     /**
-     * 验签JWT
+     * 验签JWT,刷新token
      *
      * @param jwt json web token
      * @return 如果验证通过，且刷新了token，则设置 JwtToken.isFlushed 为true
      */
-    public JwtToken parseJwt(String jwt) throws IcanBusinessException {
-        if(appKey == null || appKey.equals("")){
-            appKey = DEFAULT_APPKEY;
-        }
+    public JwtToken refreshJwt(String jwt) throws IcanBusinessException {
+        Claims claims=null;
 
-        // 检查 jwt token 合法性
-        Claims claims;
-        try{
-            claims = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(appKey))
-                    .parseClaimsJws(jwt)
-                    .getBody();
-        }catch (ExpiredJwtException ex){//token过期异常 token已经失效需要重新登录
-            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"token过期或失效");
-        }catch (SignatureException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e){//不支持的token
-            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"token验证失败");
-        }catch (Exception e){
-            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"未知异常");
+        try {
+            claims=parseJwt(jwt);
+        }catch (IcanBusinessException e){
+            throw new IcanBusinessException(e.getMessageCode(),e.getMessage());
         }
 
         JwtToken jwtToken = new JwtToken();
@@ -165,6 +154,36 @@ public class JwtUtil {
     }
 
 
+    /**
+     * 角签token
+     *
+     * @param jwt json web token
+     * @return 如果验证通过，则返回用户信息
+     */
+    public Claims parseJwt(String jwt) throws IcanBusinessException {
+        if(appKey == null || appKey.equals("")){
+            appKey = DEFAULT_APPKEY;
+        }
+
+        // 检查 jwt token 合法性
+        Claims claims;
+        try{
+            claims = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(appKey))
+                    .parseClaimsJws(jwt)
+                    .getBody();
+        }catch (ExpiredJwtException e){//token过期异常 token已经失效需要重新登录
+            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"token过期或失效");
+        }catch (SignatureException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e){//不支持的token
+            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"token验证失败");
+        }catch (Exception e){
+            throw new IcanBusinessException(ResponseCodeNum.REQUEST_ERROR,"未知异常");
+        }
+
+        return claims;
+    }
+
+
     /* *
      * @Description
      * @Param [val] 从json数据中读取格式化map
@@ -178,4 +197,7 @@ public class JwtUtil {
             throw new MalformedJwtException("Unable to read JSON value: " + val, e);
         }
     }
+
+
+
 }

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 /**
  * 基本返回体
  *
- * @author jacky
- * @date 2017/9/6
+ * @author liangqw
+ * @date 2019/9/6
  */
 @Data
 @Builder

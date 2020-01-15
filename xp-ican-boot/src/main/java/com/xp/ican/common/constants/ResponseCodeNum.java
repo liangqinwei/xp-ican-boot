@@ -29,6 +29,9 @@ public enum ResponseCodeNum {
 
     RESPONSE_LOGIN_ERROR(400200,"获取用户登录信息失败"),
     RESPONSE_LOGOUT_ERROR(400201,"退出登录失败"),
+    RESPONSE_PARSE_TOKEN_ERROR(400203, "解析用户token异常"),
+    RESPONSE_AUTHOR_IDENTITY_ERROR(400300, "%s"),
+
     ;
 
 

@@ -27,8 +27,7 @@ public class UserRealm extends AuthorizingRealm {
     }
 
 
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    @Override    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String account=(String)authenticationToken.getPrincipal();
         UserEntity userEntity=userService.getUserByName(account);
         if(userEntity==null){

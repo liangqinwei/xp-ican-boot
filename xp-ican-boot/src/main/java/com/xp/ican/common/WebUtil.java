@@ -94,7 +94,16 @@ public class WebUtil {
      * @return
      */
     public static boolean isPublicRequest(HttpServletRequest request) {
-        if(request.getRequestURI().indexOf(RequestMappingConst.BASIC_URL_PUBLIC) >= 0){
+//        if(request.getRequestURI().indexOf(RequestMappingConst.BASIC_URL_PUBLIC) >= 0){
+//            return true;
+//        }
+//        return false;
+        return isContainAuthUrl(RequestMappingConst.BASIC_URL_PUBLIC,request);
+    }
+
+    public static boolean isContainAuthUrl(String url,HttpServletRequest request){
+        String str="/"+request.getRequestURI().split("/")[1];
+        if(str.equals(url)&&request.getRequestURI().startsWith(url)&&request.getRequestURI().indexOf(url)>=0){
             return true;
         }
         return false;

@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface UserService {
 
-    UserEntity userLogin(String userName, String pwd) throws IcanBusinessException;
 
     void logout();
 
@@ -19,5 +18,23 @@ public interface UserService {
     UserEntity getUserByName(String name);
 
     List<String> getUserPermissions(long userId);
+
+    String getLoginToken(String name,String pwd) throws IcanBusinessException;
+
+    List<Long> getUserRolesByUid(long userId);
+
+    List<Long> getUserRolesByName(String name);
+
+    void addUserRole(String name,List<Long> roles) throws IcanBusinessException;
+
+    void deleteUserRole(String name,List<Long> roles) throws IcanBusinessException;
+
+    void updateUserRole(String name, List<Long> roles) throws IcanBusinessException;
+
+    void updateUserPerms(Long rid, List<Long> perms) throws IcanBusinessException;
+
+    void addUserPerms(Long rid, List<Long> perms) throws IcanBusinessException;
+
+    void deleteUserPerms(Long rid, List<Long> perms) throws IcanBusinessException;
 
 }
